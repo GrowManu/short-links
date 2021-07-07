@@ -100,7 +100,7 @@ class Links extends \yii\db\ActiveRecord{
 
     }
     /**
-     * Check counter and change it.
+     * Check link time.
      *
      * @return bool
      */
