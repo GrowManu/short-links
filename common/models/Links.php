@@ -112,6 +112,17 @@ class Links extends \yii\db\ActiveRecord{
 
     }
     /**
+     * Check if count is zero.
+     *
+     * @return object
+     */
+    public function Check_Zero($model){
+        if ($model->counter == 0){
+            $model->counter = $model->counter = null;
+        }
+        return $model;
+    }
+    /**
      * Set link time.
      *
      * @return object

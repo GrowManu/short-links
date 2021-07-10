@@ -8,6 +8,7 @@ use common\models\LinksSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ServerErrorHttpException;
 
 /**
  * LinksController implements the CRUD actions for Links model.
@@ -70,15 +71,15 @@ class LinksController extends Controller
 
             $model->short_link = $model->Short_Link();
 
-            if ($model->counter == 0){
-                $model->counter = $model->counter = null;
-            }
+            $model->Check_Zero($model);
 
             $model->LinkTime($model);
 
-            $model->save();
+            if ($model->save()){
+                return $this->redirect(['index']);
+            }
 
-            return $this->redirect(['index']);
+            throw new ServerErrorHttpException();
         }
 
         return $this->render('create', [
@@ -140,8 +141,7 @@ class LinksController extends Controller
         $model =  $this->findModel($id);
 
         if ($model->Check_Counter($model) && $model->Check_Time($model)){
-            $link = $model->link;
-            $this->redirect("$link");
+            $this->redirect("$model->link");
             return;
         }
 
