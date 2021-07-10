@@ -81,6 +81,15 @@ class Links extends \yii\db\ActiveRecord{
     public static function findLink($id){
         return static::findOne(['id' => $id]);
     }
+    /**
+     * Set link time.
+     *
+     * @return object
+     */
+    public function LinkTime($model){
+        $model->time = $model->hours * 3600 + $model->minute * 60 + time();
+        return $model;
+    }
 
     /**
      * Check counter and change it.
@@ -120,15 +129,6 @@ class Links extends \yii\db\ActiveRecord{
         if ($model->counter == 0){
             $model->counter = $model->counter = null;
         }
-        return $model;
-    }
-    /**
-     * Set link time.
-     *
-     * @return object
-     */
-    public function LinkTime($model){
-        $model->time = $model->hours * 3600 + $model->minute * 60 + time();
         return $model;
     }
 
